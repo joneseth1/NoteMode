@@ -127,3 +127,7 @@ button {
     padding-top: 25px;
     text-align: left;
 }
+
+#userExistsAlert {
+    color: red;
+}

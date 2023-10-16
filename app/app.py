@@ -1,9 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 from passlib.hash import pbkdf2_sha256
 import sqlite3
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'  # Replace with a secure secret key
+app.secret_key = 'your_secret_key'  
 
 # Create SQLite database and table
 conn = sqlite3.connect('users.db')
@@ -55,22 +55,34 @@ def logout():
 
 @app.route('/create_account', methods=['GET', 'POST'])
 def create_account():
+    user_exists = False  # Flag to indicate whether the user already exists
+
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
 
         conn = sqlite3.connect('users.db')
         cursor = conn.cursor()
-        hashed_password = hash_password(password)
-        cursor.execute('INSERT INTO users (username, password_hash) VALUES (?, ?)', (username, hashed_password))
-        conn.commit()
+
+        # Check if the username already exists
+        cursor.execute('SELECT * FROM users WHERE username = ?', (username,))
+        existing_user = cursor.fetchone()
+
+        if existing_user:
+            user_exists = True
+        else:
+            hashed_password = hash_password(password)
+            cursor.execute('INSERT INTO users (username, password_hash) VALUES (?, ?)', (username, hashed_password))
+            conn.commit()
+            session['username'] = username
+            return redirect(url_for('home'))
+
         conn.close()
 
-        session['username'] = username
-        return redirect(url_for('home'))
+    return render_template('create_account.html', user_exists=user_exists)
 
-    return render_template('create_account.html')
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
-
