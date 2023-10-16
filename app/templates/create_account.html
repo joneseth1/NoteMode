@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NoteMode</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <link href="../static/create_account.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+    <div class="logo-box">
+        <h1 class="NoteMode-logo">NoteMode</h1>
+    </div>
+
+    <div class="center-login">
+
+        <h2 id="loginHeader">Create Account</h2>
+        <div id="line"></div>
+
+        <form method="post" action="">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required><br>
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email" required><br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required><br>
+            <div id="buttonContainer">
+                <button type="submit">Create Account</button>
+            </div>
+        </form>
+    </div>
+    <div id="accountIt">
+        <p>Already have an account? &nbsp;&nbsp; &nbsp; &nbsp;  </i><u><b> 
+            <a href="{{ url_for('login') }}">Login </a> </b></u></p>
+    </div>
+</body>
+</html>
