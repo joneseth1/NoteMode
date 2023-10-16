@@ -3,10 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="../static/home.css" rel="stylesheet" type="text/css" />
     <title>NoteMode</title>
 </head>
 <body>
-    home
+
+    <div class="header-box">
+        <h1 class="mode-header">Modes</h1>
+    </div>
+
     <a href="{{ url_for('login') }}">Login </a> </b></u></p>
+
+    <div class="mode-list"></div>
 </body>
 </html>
