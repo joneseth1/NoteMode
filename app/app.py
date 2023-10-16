@@ -1,9 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'  # Replace with a secure secret key
+app.secret_key = 'your_secret_key'  
 
-# Dummy user data (in a real app, you'd use a database)
 users = {'user1': 'password1', 'user2': 'password2'}
 
 @app.route('/')
