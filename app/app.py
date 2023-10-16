@@ -1,8 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for, session
+from passlib.hash import pbkdf2_sha256
 import sqlite3
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'  
+app.secret_key = 'your_secret_key'  # Replace with a secure secret key
 
 # Create SQLite database and table
 conn = sqlite3.connect('users.db')
@@ -11,11 +12,17 @@ cursor.execute('''
     CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         username TEXT,
-        password TEXT
+        password_hash TEXT
     )
 ''')
 conn.commit()
 conn.close()
+
+def hash_password(password):
+    return pbkdf2_sha256.hash(password)
+
+def verify_password(password, password_hash):
+    return pbkdf2_sha256.verify(password, password_hash)
 
 @app.route('/')
 def home():
@@ -31,11 +38,11 @@ def login():
 
         conn = sqlite3.connect('users.db')
         cursor = conn.cursor()
-        cursor.execute('SELECT * FROM users WHERE username = ? AND password = ?', (username, password))
+        cursor.execute('SELECT * FROM users WHERE username = ?', (username,))
         user = cursor.fetchone()
         conn.close()
 
-        if user:
+        if user and verify_password(password, user[2]):
             session['username'] = username
             return redirect(url_for('home'))
 
@@ -54,7 +61,8 @@ def create_account():
 
         conn = sqlite3.connect('users.db')
         cursor = conn.cursor()
-        cursor.execute('INSERT INTO users (username, password) VALUES (?, ?)', (username, password))
+        hashed_password = hash_password(password)
+        cursor.execute('INSERT INTO users (username, password_hash) VALUES (?, ?)', (username, hashed_password))
         conn.commit()
         conn.close()
 
@@ -65,3 +73,4 @@ def create_account():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
