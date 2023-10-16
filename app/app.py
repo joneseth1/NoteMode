@@ -1,9 +1,21 @@
 from flask import Flask, render_template, request, redirect, url_for, session
+import sqlite3
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  
 
-users = {'user1': 'password1', 'user2': 'password2'}
+# Create SQLite database and table
+conn = sqlite3.connect('users.db')
+cursor = conn.cursor()
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        username TEXT,
+        password TEXT
+    )
+''')
+conn.commit()
+conn.close()
 
 @app.route('/')
 def home():
@@ -17,7 +29,13 @@ def login():
         username = request.form['username']
         password = request.form['password']
 
-        if username in users and users[username] == password:
+        conn = sqlite3.connect('users.db')
+        cursor = conn.cursor()
+        cursor.execute('SELECT * FROM users WHERE username = ? AND password = ?', (username, password))
+        user = cursor.fetchone()
+        conn.close()
+
+        if user:
             session['username'] = username
             return redirect(url_for('home'))
 
@@ -34,16 +52,16 @@ def create_account():
         username = request.form['username']
         password = request.form['password']
 
-        # In a real app, you'd hash the password and store it securely in a database
-        users[username] = password
+        conn = sqlite3.connect('users.db')
+        cursor = conn.cursor()
+        cursor.execute('INSERT INTO users (username, password) VALUES (?, ?)', (username, password))
+        conn.commit()
+        conn.close()
 
         session['username'] = username
         return redirect(url_for('home'))
 
     return render_template('create_account.html')
-
-
-
 
 if __name__ == '__main__':
     app.run(debug=True)
