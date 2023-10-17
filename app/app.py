@@ -1,9 +1,11 @@
-from flask import Flask, render_template, request, redirect, url_for, session, jsonify
+from flask import Flask, render_template, request, redirect, url_for, session, jsonify, Blueprint
 from passlib.hash import pbkdf2_sha256
+from views.settings_view import settings
 import sqlite3
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  
+app.register_blueprint(settings, url_prefix='/settings')
 
 # Create SQLite database and table
 conn = sqlite3.connect('users.db')
@@ -51,7 +53,7 @@ def login():
 @app.route('/logout')
 def logout():
     session.pop('username', None)
-    return redirect(url_for('home'))
+    return redirect(url_for('login'))
 
 @app.route('/create_account', methods=['GET', 'POST'])
 def create_account():
