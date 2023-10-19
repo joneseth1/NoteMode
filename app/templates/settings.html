@@ -26,15 +26,15 @@
     <div class="center-login">
         <h2 id="loginHeader">Settings</h2>
         <div id="line"></div>
-        <form method="post" action="">
+        <form method="POST" action="{{ url_for('settings.settings_page') }}"">
             <div id="buttonContainer">
-                <button type="submit">Edit Account</button>
+                <button type="submit" name="button_name" value="edit">Edit Account</button>
             </div>
             <div id="buttonContainer">
-                <button type="submit">Delete Account</button>
+                <button type="submit" name="button_name" value="delete">Delete Account</button>
             </div>
             <div id="buttonContainer">
-                <button type="submit">Logout</button>
+                <button type="submit" name="button_name" value="logout">Logout</button>
             </div>
         </form>
     </div>

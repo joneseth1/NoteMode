@@ -50,7 +50,7 @@ def login():
 
     return render_template('login.html')
 
-@app.route('/logout')
+@app.route('/logout', methods=['GET','POST'])
 def logout():
     session.pop('username', None)
     return redirect(url_for('login'))
