@@ -1,11 +1,14 @@
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify, Blueprint
 from passlib.hash import pbkdf2_sha256
 from views.settings_view import settings
+from views.mode_view import mode
 import sqlite3
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  
 app.register_blueprint(settings, url_prefix='/settings')
+app.register_blueprint(mode, url_prefix='/mode')
+
 
 # Create SQLite database and table
 conn = sqlite3.connect('users.db')
