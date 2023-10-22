@@ -27,7 +27,25 @@
             </a>
             <h4 id="createNewModeHeader"> Create New Mode </h4>
         </div>
-    </div>
 
+            {% if modes %}
+                {% for mode in modes %}
+                    <div class="mode">
+                        <a href="{{ url_for('mode.add_mode') }}">
+                            <span class="material-symbols-outlined" id="btnAdd"></span> 
+                        </a>
+                        <h4 id="createNewModeHeader">{{ mode[2] }}
+                            <a href="{{ url_for('mode.edit_mode',  mode_id=mode[0]) }}">
+                                <span class="material-symbols-outlined" id="editIcon">
+                                    edit_square
+                                </span>    
+                            </a>
+                        </h4>
+                        
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+    </div>
 </body>
 </html>

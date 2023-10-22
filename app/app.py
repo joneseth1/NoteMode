@@ -23,6 +23,25 @@ cursor.execute('''
 conn.commit()
 conn.close()
 
+# Connect to the 'modes.db' database
+conn = sqlite3.connect('modes.db')
+cursor = conn.cursor()
+
+# Create the 'modes' table if it doesn't exist
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS modes (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER,
+        mode_name TEXT,
+        mode_notes TEXT,
+        FOREIGN KEY (user_id) REFERENCES users (id)
+    )
+''')
+
+# Commit the changes and close the connection
+conn.commit()
+conn.close()
+
 def hash_password(password):
     return pbkdf2_sha256.hash(password)
 
@@ -32,7 +51,7 @@ def verify_password(password, password_hash):
 @app.route('/')
 def home():
     if 'username' in session:
-        return render_template('home.html', username=session['username'])
+        return redirect(url_for('mode.list_modes'))
     return redirect(url_for('login'))
 
 @app.route('/login', methods=['GET', 'POST'])
