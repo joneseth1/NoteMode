@@ -3,16 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Mode</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='edit_mode.css') }}">
+    <title>NoteMode</title>
 </head>
 <body>
-    <h1>Edit Mode</h1>
+    <h1 class="mode-header">Edit Mode</h1>
+    <div id="line"></div>
 
-    <form method="POST" action="{{ url_for('mode.edit_mode', mode_id=mode[0]) }}">
-        <label for="mode_name">Mode Name:</label>
-        <input type="text" id="mode_name" name="mode_name" required>
+    <div class="edit-mode-form">
+        <form method="POST" action="{{ url_for('mode.edit_mode', mode_id=mode[0]) }}">
+            <label for="mode_name">Mode Name:</label>
+            <input type="text" id="mode_name" name="mode_name" value="{{ mode[2] }}" required>
+            <label for="deleteMode">Delete Mode? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input type="checkbox" id="deleteMode" name="deleteMode"> </label>
+            <div id='buttonContainer'>
+                <button type="submit">Done</button>
+            </div>
+        </form>
+    </div>
 
-        <button type="submit">Save Changes</button>
-    </form>
 </body>
 </html>
