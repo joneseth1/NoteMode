@@ -3,6 +3,7 @@ from passlib.hash import pbkdf2_sha256
 from views.settings_view import settings
 from views.mode_view import mode
 from views.note_view import notes
+from views.note_editer_view import note
 import sqlite3
 
 app = Flask(__name__)
@@ -10,6 +11,7 @@ app.secret_key = 'your_secret_key'
 app.register_blueprint(settings, url_prefix='/settings')
 app.register_blueprint(mode, url_prefix='/mode')
 app.register_blueprint(notes, url_prefix='/notes')
+app.register_blueprint(note, url_prefix='/note')
 
 
 # Create SQLite database and table

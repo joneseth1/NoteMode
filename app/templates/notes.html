@@ -235,7 +235,7 @@
 
         {% for note in notes %}
             <div class= "{{ view }}">
-                <a href="">
+                <a href="{{ url_for('note.show_note', mode_id=mode_id, note_id=note[0]) }}">
                     <span class="material-symbols-outlined" id="btnAdd"></span> 
                 </a>
                 <h4 id="createNewNoteHeader">{{ note[2] }}
