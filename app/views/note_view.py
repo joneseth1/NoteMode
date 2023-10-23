@@ -106,8 +106,7 @@ def get_view(mode_id):
     with sqlite3.connect('modes.db') as conn:
         cursor = conn.cursor()
         cursor.execute('SELECT note_view FROM modes WHERE id = ?', (mode_id,))
-        view = cursor.fetchone()  # Add parentheses here
-        print("VIEW", view[0])
+        view = cursor.fetchone()  
     return view[0] if view else None
 
 

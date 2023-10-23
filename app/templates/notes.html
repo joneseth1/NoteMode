@@ -54,6 +54,25 @@
             
         }
 
+        .note-icon {
+            margin: 4vw; 
+            width: 6vw; 
+            height: 12vh; 
+            flex-shrink: 0;
+            background: white; 
+            border-radius: 7.5vw;
+
+        }
+
+        .note-list {
+            margin: 4vw; 
+            width: 8vw; 
+            height: 5vh; 
+            flex-shrink: 0;
+            background: white; 
+            border-radius: 7.5vw;
+        }
+
         .notes-header {
             position: absolute;
             top: 1.5vh; 
@@ -142,15 +161,6 @@
             top: 40px;
         }
 
-        #createNewNotes {
-            margin: 4vw; 
-            width: 8vw; 
-            height: 12vh; 
-            flex-shrink: 0;
-            background: white; 
-            border-radius: 7.5vw;
-        }
-
         #btnAdd {
             text-align: center;
             display: flex;
@@ -215,7 +225,7 @@
 
 
     <div class="notes-list">
-        <div id="createNewNotes">
+        <div class="{{ view }}" id="createNewNotes">
             <a href="{{ url_for('notes.add_note', mode_id=mode_id) }}">
                 <span class="material-symbols-outlined" id="btnAdd">add_circle</span> 
             </a>
