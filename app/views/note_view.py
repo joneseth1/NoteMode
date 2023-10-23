@@ -46,6 +46,36 @@ def add_note(mode_id):
 
     return redirect(url_for('login'))
 
+@notes.route('/mode/<int:mode_id>/edit-note/<int:note_id>', methods=['GET', 'POST'])
+def edit_note(mode_id, note_id):
+    if 'username' in session:
+        username = session['username']
+        user_id = get_user_id(username)
+
+        note = get_note_by_id(note_id)
+
+        if request.method == 'POST':
+            new_note_name = request.form.get('note_name')
+            delete_note = request.form.get('deleteNote')  # Check if the checkbox is selected
+
+            if delete_note is not None: 
+                
+                with sqlite3.connect('modes.db') as conn:
+                    cursor = conn.cursor()
+                    cursor.execute('DELETE FROM notes WHERE id = ?', (note_id,))
+                    conn.commit()
+                return redirect(url_for('notes.show_notes', mode_id=mode_id))
+
+            with sqlite3.connect('modes.db') as conn:
+                cursor = conn.cursor()
+                cursor.execute('UPDATE notes SET note_name = ? WHERE id = ?', (new_note_name, note_id))
+                conn.commit()
+
+            return redirect(url_for('notes.show_notes', mode_id=mode_id))
+
+        return render_template('edit_note.html', note=note, mode_id=mode_id, note_id=note_id)
+
+    return redirect(url_for('login'))
 
 
 def get_mode_info(mode_id):
@@ -88,3 +118,10 @@ def get_notes_by_mode(mode_id):
     conn.close()
     print(notes)
     return notes
+
+def get_note_by_id(note_id):
+    with sqlite3.connect('modes.db') as conn:
+        cursor = conn.cursor()
+        cursor.execute('SELECT * FROM notes WHERE id = ?', (note_id,))
+        note = cursor.fetchone()
+    return note

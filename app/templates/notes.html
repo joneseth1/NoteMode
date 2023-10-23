@@ -178,6 +178,10 @@
             left: 0px;
             top: 0px;
         }
+
+        #editIcon {
+            color: black;
+        }
     </style>
 
 </head>
@@ -221,7 +225,17 @@
 
         {% for note in notes %}
             <div class="note">
-                <h4 id="createNewNoteHeader">{{ note.note_name }}</h4>
+                <a href="">
+                    <span class="material-symbols-outlined" id="btnAdd"></span> 
+                </a>
+                <h4 id="createNewNoteHeader">{{ note[2] }}
+                    <a href="{{ url_for('notes.edit_note', mode_id=mode_id, note_id=note[0]) }}">
+                            <span class="material-symbols-outlined" id="editIcon">
+                                edit_square
+                            </span>    
+                        </a>
+                </h4>
+   
             </div>
         {% endfor %}
 
