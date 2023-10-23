@@ -192,6 +192,17 @@
     #editIcon {
         color: black;
     }
+
+    #noteTextarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: none;
+            font-size: 16px;
+        }
+
 </style>
 
 <body>
@@ -215,12 +226,14 @@
     </di>
     
 
-    <h1 class="notes-header">{{ name }} </h1>
+    <h1 class="notes-header">Note: {{ name }} </h1>
     
 
     <a href="{{ url_for('settings.settings_page') }}">
         <span class="material-symbols-outlined" id="btnSetting">settings</span>
     </a>
+
+    <textarea id="noteTextarea" rows="40" cols="100"></textarea>
 
 
 
