@@ -14,6 +14,7 @@ def init_db():
                 mode_name TEXT,
                 background_color TEXT,
                 font_family TEXT,
+                note_view TEXT,
                 FOREIGN KEY (user_id) REFERENCES users (id)
             )
         ''')
@@ -96,11 +97,11 @@ def get_mode_by_id(mode_id):
     return mode
 
 # Helper function to update mode details by ID
-def update_mode(mode_id, mode_name, background_color, font_family):
+def update_mode(mode_id, mode_name, background_color, font_family, note_view):
     with sqlite3.connect('modes.db') as conn:
         cursor = conn.cursor()
-        cursor.execute('UPDATE modes SET mode_name = ?, background_color = ?, font_family = ? WHERE id = ?',
-                       (mode_name, background_color, font_family, mode_id))
+        cursor.execute('UPDATE modes SET mode_name = ?, background_color = ?, font_family = ?, note_view = ? WHERE id = ?',
+                       (mode_name, background_color, font_family, note_view, mode_id))
         conn.commit()
 
 
@@ -118,6 +119,7 @@ def edit_mode(mode_id):
             mode_name = request.form.get('mode_name')
             background_color = request.form.get('background_color')
             font_family = request.form.get('font_family')
+            note_view = request.form.get('note_view')
             delete_mode = request.form.get('deleteMode')  # Check if the checkbox is selected
 
             if delete_mode is not None:  # Check if the checkbox is selected
@@ -128,7 +130,7 @@ def edit_mode(mode_id):
                 return redirect(url_for('mode.list_modes'))
             else:
                 # Update mode details if the checkbox is not selected
-                update_mode(mode_id, mode_name, background_color, font_family)
+                update_mode(mode_id, mode_name, background_color, font_family, note_view)
                 return redirect(url_for('mode.list_modes'))
 
         return render_template('edit_mode.html', mode=mode)
