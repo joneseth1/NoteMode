@@ -44,7 +44,7 @@
             'opsz' 24
         }
 
-        .note {
+        .note-tile {
             margin: 4vw; 
             width: 8vw; 
             height: 12vh; 
@@ -224,7 +224,7 @@
         </div>
 
         {% for note in notes %}
-            <div class="note">
+            <div class= "{{ view }}">
                 <a href="">
                     <span class="material-symbols-outlined" id="btnAdd"></span> 
                 </a>

@@ -32,9 +32,9 @@
             <h2>Note View</h2>
             <label for="note_view">View:</label>
             <select id="note_view" name="note_view">
-                <option value="icons" {{ 'selected' if mode[5] == 'icons' else '' }}>Icons</option>
-                <option value="tiles" {{ 'selected' if mode[5] == 'tiles' else '' }}>Tiles</option>
-                <option value="list" {{ 'selected' if mode[5] == 'list' else '' }}>List</option>
+                <option value="note-tile" {{ 'selected' if mode[5] == 'note-tile' else '' }}>Tiles</option>
+                <option value="note-icon" {{ 'selected' if mode[5] == 'icons' else '' }}>Icons</option>
+                <option value="note-list" {{ 'selected' if mode[5] == 'list' else '' }}>List</option>
             </select>
 
             <label for="deleteMode">Delete Mode? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input type="checkbox" id="deleteMode" name="deleteMode"> </label>

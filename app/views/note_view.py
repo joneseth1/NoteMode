@@ -15,8 +15,9 @@ def show_notes(mode_id):
         notes = get_notes_by_mode(mode_id)
         color = get_background_color(mode_id)
         font = get_font(mode_id)
+        view = get_view(mode_id)
         name = get_mode_name(mode_id)
-        return render_template('notes.html', name=name, color=color, font=font, mode_id=mode_id, notes=notes)
+        return render_template('notes.html', name=name, color=color, font=font, mode_id=mode_id, view=view, notes=notes)
 
     return redirect(url_for('login'))
 
@@ -100,6 +101,15 @@ def get_font(mode_id):
         cursor.execute('SELECT font_family FROM modes WHERE id = ?', (mode_id,))
         font = cursor.fetchone()
     return font[0] if font else None
+
+def get_view(mode_id):
+    with sqlite3.connect('modes.db') as conn:
+        cursor = conn.cursor()
+        cursor.execute('SELECT note_view FROM modes WHERE id = ?', (mode_id,))
+        view = cursor.fetchone()  # Add parentheses here
+        print("VIEW", view[0])
+    return view[0] if view else None
+
 
 def get_mode_name(mode_id):
     with sqlite3.connect('modes.db') as conn:
