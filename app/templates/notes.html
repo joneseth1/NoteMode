@@ -49,7 +49,7 @@
             width: 8vw; 
             height: 12vh; 
             flex-shrink: 0;
-            background: #D9D9D9; 
+            background: white; 
             border-radius: 7.5vw;
             
         }
@@ -216,24 +216,15 @@
                 <span class="material-symbols-outlined" id="btnAdd">add_circle</span> 
             </a>
             <h4 id="createNewNoteHeader"> Create New Note </h4>
+            <a ref="{{ url_for('notes.add_note', mode_id=mode_id) }}"></a>
+        </div>
 
-            {% if notes %}
-                {% for note in notes %}
-                    <div class="note">
-                        <a href="{{ url_for('notes.add_note', mode_id=mode_id) }}">
-                            <span class="material-symbols-outlined" id="btnAdd"></span> 
-                        </a>
-                        <h4 id="createNewNoteHeader">{{ mode[2] }}
-                            <a href="{{ url_for('mode.edit_mode',  mode_id=mode[0]) }}">
-                                <span class="material-symbols-outlined" id="editIcon">
-                                    edit_square
-                                </span>    
-                            </a>
-                        </h4>
-                        
-                    </div>
-                {% endfor %}
-            {% endif %}
+        {% for note in notes %}
+            <div class="note">
+                <h4 id="createNewNoteHeader">{{ note.note_name }}</h4>
+            </div>
+        {% endfor %}
+
 
     </div>
 

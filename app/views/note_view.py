@@ -12,11 +12,11 @@ def show_notes(mode_id):
         username = session['username']
         user_id = get_user_id(username)
 
-        info = get_mode_info(mode_id)
+        notes = get_notes_by_mode(mode_id)
         color = get_background_color(mode_id)
         font = get_font(mode_id)
         name = get_mode_name(mode_id)
-        return render_template('notes.html', name=name, color=color, font=font, mode_id=mode_id)
+        return render_template('notes.html', name=name, color=color, font=font, mode_id=mode_id, notes=notes)
 
     return redirect(url_for('login'))
 
@@ -86,4 +86,5 @@ def get_notes_by_mode(mode_id):
     cursor.execute('SELECT * FROM notes WHERE mode_id = ?', (mode_id,))
     notes = cursor.fetchall()
     conn.close()
+    print(notes)
     return notes

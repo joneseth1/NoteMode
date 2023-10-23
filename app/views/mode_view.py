@@ -3,7 +3,7 @@ import sqlite3
 
 mode = Blueprint('mode', __name__)
 
-# Function to initialize the database
+# views/mode_view.py
 def init_db():
     with sqlite3.connect('modes.db') as conn:
         cursor = conn.cursor()
@@ -13,9 +13,11 @@ def init_db():
                 user_id INTEGER,
                 mode_name TEXT,
                 background_color TEXT,
-                font_family TEXT
+                font_family TEXT,
+                FOREIGN KEY (user_id) REFERENCES users (id)
             )
         ''')
+
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS notes (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -24,9 +26,12 @@ def init_db():
                 FOREIGN KEY (mode_id) REFERENCES modes (id)
             )
         ''')
+
         conn.commit()
+
 # Initialize the database when the application starts
 init_db()
+
 
 def get_user_id(username):
     conn = sqlite3.connect('users.db')
