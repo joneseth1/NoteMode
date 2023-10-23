@@ -11,11 +11,20 @@ def init_db():
             CREATE TABLE IF NOT EXISTS modes (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 user_id INTEGER,
-                mode_name TEXT
+                mode_name TEXT,
+                background_color TEXT,
+                font_family TEXT
+            )
+        ''')
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS notes (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                mode_id INTEGER,
+                content TEXT,
+                FOREIGN KEY (mode_id) REFERENCES modes (id)
             )
         ''')
         conn.commit()
-
 # Initialize the database when the application starts
 init_db()
 
@@ -31,6 +40,8 @@ def get_user_id(username):
 def add_mode():
     if request.method == 'POST':
         mode_name = request.form.get('mode_name')
+        background_color = request.form.get('background_color')
+        font_family = request.form.get('font_family')
 
         if 'username' in session:
             username = session['username']
@@ -41,8 +52,8 @@ def add_mode():
             # Insert new mode into the database with auto-incremented id
             with sqlite3.connect('modes.db') as conn:
                 cursor = conn.cursor()
-                cursor.execute('INSERT INTO modes (user_id, mode_name) VALUES (?, ?)',
-                               (user_id, mode_name))
+                cursor.execute('INSERT INTO modes (user_id, mode_name, background_color, font_family) VALUES (?, ?, ?, ?)',
+                               (user_id, mode_name, background_color, font_family))
                 mode_id = cursor.lastrowid
 
             return redirect(url_for('mode.list_modes'))
@@ -65,7 +76,7 @@ def list_modes():
             cursor.execute('SELECT * FROM modes WHERE user_id = ?', (user_id,))
             modes = cursor.fetchall()
             for mode in modes:
-                print(f"Mode_name: {mode[2]}")
+                print(f"Mode_name: {mode[2]}, Background Color: {mode[3]}, Font Family: {mode[4]}")
 
         return render_template('home.html', modes=modes)
 
@@ -80,11 +91,11 @@ def get_mode_by_id(mode_id):
     return mode
 
 # Helper function to update mode details by ID
-def update_mode(mode_id, mode_name):
+def update_mode(mode_id, mode_name, background_color, font_family):
     with sqlite3.connect('modes.db') as conn:
         cursor = conn.cursor()
-        cursor.execute('UPDATE modes SET mode_name = ? WHERE id = ?',
-                       (mode_name, mode_id))
+        cursor.execute('UPDATE modes SET mode_name = ?, background_color = ?, font_family = ? WHERE id = ?',
+                       (mode_name, background_color, font_family, mode_id))
         conn.commit()
 
 
@@ -100,6 +111,8 @@ def edit_mode(mode_id):
         if request.method == 'POST':
             # Update mode details
             mode_name = request.form.get('mode_name')
+            background_color = request.form.get('background_color')
+            font_family = request.form.get('font_family')
             delete_mode = request.form.get('deleteMode')  # Check if the checkbox is selected
 
             if delete_mode is not None:  # Check if the checkbox is selected
@@ -110,10 +123,9 @@ def edit_mode(mode_id):
                 return redirect(url_for('mode.list_modes'))
             else:
                 # Update mode details if the checkbox is not selected
-                update_mode(mode_id, mode_name)
+                update_mode(mode_id, mode_name, background_color, font_family)
                 return redirect(url_for('mode.list_modes'))
 
         return render_template('edit_mode.html', mode=mode)
 
     return redirect(url_for('login'))
-

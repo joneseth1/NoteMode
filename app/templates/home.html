@@ -31,7 +31,7 @@
             {% if modes %}
                 {% for mode in modes %}
                     <div class="mode">
-                        <a href="{{ url_for('mode.add_mode') }}">
+                        <a href="{{ url_for('notes.show_notes', mode_id=mode[0]) }}">
                             <span class="material-symbols-outlined" id="btnAdd"></span> 
                         </a>
                         <h4 id="createNewModeHeader">{{ mode[2] }}

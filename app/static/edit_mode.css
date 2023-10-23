@@ -30,6 +30,17 @@ input {
     border-radius: 4px;
 }
 
+input[type="color"] {
+    margin-top: 20px;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    height: 40px; /* Set the height for visibility */
+}
+
+
 input[type="checkbox"] {
     width: 20px; 
     height: 20px; 
@@ -113,7 +124,7 @@ button {
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 
     width: 200px;
-    height: 220px;
+    height: 380px;
     background-color: #f0f0f0;
     border: 1px solid #ccc;
     text-align: left;

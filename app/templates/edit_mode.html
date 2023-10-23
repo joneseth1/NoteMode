@@ -18,7 +18,19 @@
         <form method="POST" action="{{ url_for('mode.edit_mode', mode_id=mode[0]) }}">
             <label for="mode_name">Mode Name:</label>
             <input type="text" id="mode_name" name="mode_name" value="{{ mode[2] }}" required>
+            
+            <label for="background_color">Background Color:</label>
+            <input type="color" id="background_color" name="background_color" value="{{ mode[3] }}">
+            
+            <label for="font_family">Font Family:</label>
+            <select id="font_family" name="font_family">
+                <option value="Arial" {{ 'selected' if mode[4] == 'Arial' else '' }}>Arial</option>
+                <option value="Times New Roman" {{ 'selected' if mode[4] == 'Times New Roman' else '' }}>Times New Roman</option>
+                <!-- Add more font options as needed -->
+            </select>
+            
             <label for="deleteMode">Delete Mode? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input type="checkbox" id="deleteMode" name="deleteMode"> </label>
+            
             <div id='buttonContainer'>
                 <button type="submit">Done</button>
             </div>
