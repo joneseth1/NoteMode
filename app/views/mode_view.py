@@ -48,6 +48,7 @@ def add_mode():
         mode_name = request.form.get('mode_name')
         background_color = request.form.get('background_color')
         font_family = request.form.get('font_family')
+        note_view = 'note-tile'
 
         if 'username' in session:
             username = session['username']
@@ -58,8 +59,8 @@ def add_mode():
             # Insert new mode into the database with auto-incremented id
             with sqlite3.connect('modes.db') as conn:
                 cursor = conn.cursor()
-                cursor.execute('INSERT INTO modes (user_id, mode_name, background_color, font_family) VALUES (?, ?, ?, ?)',
-                               (user_id, mode_name, background_color, font_family))
+                cursor.execute('INSERT INTO modes (user_id, mode_name, background_color, font_family, note_view) VALUES (?, ?, ?, ?, ?)',
+                               (user_id, mode_name, background_color, font_family, note_view))
                 mode_id = cursor.lastrowid
 
             return redirect(url_for('mode.list_modes'))
