@@ -20,7 +20,7 @@ def init_db():
             CREATE TABLE IF NOT EXISTS notes (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 mode_id INTEGER,
-                content TEXT,
+                note_name TEXT,
                 FOREIGN KEY (mode_id) REFERENCES modes (id)
             )
         ''')

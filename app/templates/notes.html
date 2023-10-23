@@ -7,7 +7,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link href="../static/home.css" rel="stylesheet" type="text/css" />
     <title>NoteMode</title>
 
 
@@ -15,12 +14,240 @@
         body {
             background: {{ color }};
             font-family: {{ font }};
+            display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                height: 100vh; 
+                margin: 0; 
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+
+        }
+
+        .material-symbols-outlined {
+            display: inline-block;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+        }
+
+        .note {
+            margin: 4vw; 
+            width: 8vw; 
+            height: 12vh; 
+            flex-shrink: 0;
+            background: #D9D9D9; 
+            border-radius: 7.5vw;
+            
+        }
+
+        .notes-header {
+            position: absolute;
+            top: 1.5vh; 
+            left: 2vw; 
+            padding: .5vw; 
+            color: black;
+            text-shadow: 0px 0.4vw 0.4vw rgba(0, 0, 0, 0.25); 
+            font-size: 3vw; 
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+        }
+
+        .notes-header::before {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0.2vw; 
+            background: black;
+        }
+
+        .notes-list {
+            width: 75vw;
+            max-height: 80vh;
+            min-height: 80vh;
+            overflow-y: auto; 
+            flex-shrink: 0;
+            background: #a3a1a1;
+            border-radius: 10vw;
+            display: flex;
+            flex-wrap: wrap;  
+        }
+
+        .notes-list::-webkit-scrollbar {
+            width: 0.5em;
+        }
+
+        .navbar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #FFFFFF;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+
+        .navbar a {
+            padding: 15px 25px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .navbar a:hover {
+            color: #f1f1f1;
+        }
+
+        .open-btn {
+            visibility: hidden;
+        }
+
+        .navbar .close-btn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 30px;
+            margin-left: 50px;
+        }
+
+        #main {
+            transition: margin-left .5s;
+        }
+
+        #btnSetting {
+            position: absolute;
+            font-size: 48px;
+            right: 50px;
+            top: 40px;
+        }
+
+        #createNewNotes {
+            margin: 4vw; 
+            width: 8vw; 
+            height: 12vh; 
+            flex-shrink: 0;
+            background: white; 
+            border-radius: 7.5vw;
+        }
+
+        #btnAdd {
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 90%;
+            font-size: 1.5vw;
+        }
+
+        #createNewNoteHeader {
+            margin: 1px;
+            text-align: center;
+            font-size: 15px;
+            color: black;
+        }
+
+        #editIcon {
+            color: white;
+        }
+
+        #menu {
+            position: absolute;
+            visibility: visible;
+            font-size: 48px;
+            left: 0px;
+            top: 0px;
         }
     </style>
 
 </head>
 <body>
-    <h1>Notes for Mode {{ color }}</h1>
+    
+    <div id="navbar" class="navbar">
+        <a href="javascript:void(0)" class="close-btn" onclick="closeNav()">       
+            <button class="open-btn" onclick="openNav()">
+                <span class="material-symbols-outlined" id="menu">menu</span>
+            </button>
+        </a>
+
+        <a href="{{ url_for('home') }}">Modes</a>
+    </div>
+    
+
+    <div id="main">
+        <button class="open-btn" onclick="openNav()">
+            <span class="material-symbols-outlined" id="menu">menu</span>
+        </button>
+    </di>
+    
+
+    <h1 class="notes-header">{{ name }}</h1>
+    <div id="lines"></div>
+    
+
+    <a href="{{ url_for('settings.settings_page') }}">
+        <span class="material-symbols-outlined" id="btnSetting">settings</span>
+    </a>
+
+
+    <div class="notes-list">
+        <div id="createNewNotes">
+            <a href="{{ url_for('notes.add_note', mode_id=mode_id) }}">
+                <span class="material-symbols-outlined" id="btnAdd">add_circle</span> 
+            </a>
+            <h4 id="createNewNoteHeader"> Create New Note </h4>
+
+            {% if notes %}
+                {% for note in notes %}
+                    <div class="note">
+                        <a href="{{ url_for('notes.add_note', mode_id=mode_id) }}">
+                            <span class="material-symbols-outlined" id="btnAdd"></span> 
+                        </a>
+                        <h4 id="createNewNoteHeader">{{ mode[2] }}
+                            <a href="{{ url_for('mode.edit_mode',  mode_id=mode[0]) }}">
+                                <span class="material-symbols-outlined" id="editIcon">
+                                    edit_square
+                                </span>    
+                            </a>
+                        </h4>
+                        
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+    </div>
+
+    <script>
+        function openNav() {
+            document.getElementById("navbar").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+        }
+    
+        function closeNav() {
+            document.getElementById("navbar").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
+        }
+    </script>
 
 </body>
 </html>
