@@ -16,7 +16,7 @@
         <h1 class="NoteMode-logo">NoteMode</h1>
     </div>
     
-    <a href="{{ url_for('home')}}">
+    <a onclick="goBack()">
         <span class="material-symbols-outlined" id="arrowBack">
             arrow_back
         </span>
@@ -39,6 +39,12 @@
         </form>
     </div>
 
+    <script>
+        function goBack() {
+            // Use the history object to navigate back
+            window.history.back();
+        }
+    </script>
 
 </body>
 </html>
