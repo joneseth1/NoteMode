@@ -1,12 +1,16 @@
+# Import necessary modules
 from flask import Blueprint, render_template, request, redirect, url_for, session
 import sqlite3
 
+# Create a Flask Blueprint named 'mode'
 mode = Blueprint('mode', __name__)
 
-# views/mode_view.py
+# Define a function to initialize the modes database
 def init_db():
     with sqlite3.connect('modes.db') as conn:
         cursor = conn.cursor()
+
+        # Create the 'modes' table if it doesn't exist
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS modes (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -19,6 +23,7 @@ def init_db():
             )
         ''')
 
+        # Create the 'notes' table if it doesn't exist
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS notes (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -33,7 +38,7 @@ def init_db():
 # Initialize the database when the application starts
 init_db()
 
-
+# Define a function to get the user ID based on the username
 def get_user_id(username):
     conn = sqlite3.connect('users.db')
     cursor = conn.cursor()
@@ -42,9 +47,11 @@ def get_user_id(username):
     conn.close()
     return user_id
 
+# Define a route for adding a new mode
 @mode.route('/add-mode', methods=['GET', 'POST'])
 def add_mode():
     if request.method == 'POST':
+        # Get mode details from the form
         mode_name = request.form.get('mode_name')
         background_color = request.form.get('background_color')
         font_family = request.form.get('font_family')
@@ -67,6 +74,7 @@ def add_mode():
 
     return render_template('add_mode.html')
 
+# Define a route for listing modes on the home page
 @mode.route('/home', methods=['GET', 'POST'])
 def list_modes():
     if 'username' in session:
@@ -105,7 +113,7 @@ def update_mode(mode_id, mode_name, background_color, font_family, note_view):
                        (mode_name, background_color, font_family, note_view, mode_id))
         conn.commit()
 
-
+# Define a route for editing a mode
 @mode.route('/edit-mode/<int:mode_id>', methods=['GET', 'POST'])
 def edit_mode(mode_id):
     if 'username' in session:

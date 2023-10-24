@@ -1,30 +1,33 @@
+/* Global Styles */
 body {   
     background: #FAFAFA;
     font-family: 'Roboto', sans-serif;
-
     display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh; 
-            margin: 0; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+    margin: 0; 
 }
 
+/* Link Styles */
 a {
     text-decoration: none;
     color: black;
-
 }
 
-h1,h2 { 
+/* Heading Underline Styles */
+h1, h2 { 
     text-decoration: underline;
 }
 
+/* Label Styles */
 label {
     display: block;
     margin-bottom: 8px;
 }
 
+/* Input Styles */
 input {
     width: 100%;
     padding: 10px;
@@ -34,6 +37,7 @@ input {
     border-radius: 4px;
 }
 
+/* Color Input Styles */
 input[type="color"] {
     margin-top: 20px;
     width: 100%;
@@ -41,16 +45,17 @@ input[type="color"] {
     box-sizing: border-box;
     border: 1px solid #ccc;
     border-radius: 4px;
-    height: 40px; /* Set the height for visibility */
+    height: 40px; 
 }
 
-
+/* Checkbox Styles */
 input[type="checkbox"] {
     width: 20px; 
     height: 20px; 
     margin-top: 20px; 
 }
 
+/* Button Styles */
 button {
     border-radius: 40px;
     background: #031926;
@@ -58,18 +63,13 @@ button {
     width: 100px;
     height: 35px;
     flex-shrink: 0;
-
-    
-
     color: #FFF;
     font-size: 15px;
-    font-style: normal;
     font-weight: 600;
     line-height: normal;
 }
 
-
-
+/* Custom Symbol Styles */
 .material-symbols-outlined {
     display: inline-block;
     padding: 10px 20px;
@@ -78,16 +78,14 @@ button {
     font-size: 16px;
     cursor: pointer;
     border-radius: 5px;
-
     font-variation-settings:
-    'FILL' 0,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 24
-  }
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24;
+}
 
-
-
+/* Mode Header Styles */
 .mode-header {
     text-decoration: none;
     position: absolute;
@@ -97,37 +95,37 @@ button {
     color: black;
     text-shadow: 0px 0.4vw 0.4vw rgba(0, 0, 0, 0.25); 
     font-size: 3vw; 
-    font-style: normal;
     font-weight: 600;
     line-height: normal;
 }
 
+/* Mode Header Line Styles */
 .mode-header::before {
     content: "";
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 0.2vw; /* Use viewport units for height */
+    height: 0.2vw; 
     background: black;
 }
 
+/* Mode List Styles */
 .mode-list {
     width: 75vw;
     height: 80vh;
     flex-shrink: 0;
     background: #333;
-    border-radius: 10vw
+    border-radius: 10vw;
 }
 
+/* Edit Mode Form Styles */
 .edit-mode-form {
     flex-shrink: 0;
-
     border-radius: 35px;
     background: #4078C0;
     mix-blend-mode: darken;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-
     width: 400px;
     height: auto;
     background-color: #f0f0f0;
@@ -136,6 +134,7 @@ button {
     padding: 20px;
 }
 
+/* Settings Button Styles */
 #btnSetting {
     position: absolute;
     font-size: 48px;
@@ -143,6 +142,7 @@ button {
     top: 40px;
 }
 
+/* Edit Mode Button Styles */
 #editMode {
     margin: 4vw; 
     width: 8vw; 
@@ -152,6 +152,7 @@ button {
     border-radius: 7.5vw;
 }
 
+/* Add Button Styles */
 #btnAdd {
     text-align: center;
     display: flex;
@@ -161,6 +162,7 @@ button {
     font-size: 1.5vw;
 }
 
+/* Edit Mode Header Styles */
 #editModeHeader {
     margin: 1px;
     text-align: center;
@@ -168,6 +170,7 @@ button {
     color: #FFF;
 }
 
+/* Arrow Back Button Styles */
 #arrowBack {
     position: absolute;
     font-size: 48px;
@@ -175,8 +178,8 @@ button {
     top: 120px;
 }
 
+/* Button Container Styles */
 #buttonContainer {
     text-align: center;
     padding-top: 30px;
 }
-

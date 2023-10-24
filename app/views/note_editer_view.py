@@ -3,6 +3,9 @@ from views.note_view import get_mode_info, get_mode_by_id, get_background_color,
 
 note = Blueprint('note', __name__)
 
+
+#View for the actual note editing, not fully complete since this is a sprint 3 requirment
+
 @note.route('/mode/<int:mode_id>/notes/<int:note_id>')
 def show_note(mode_id, note_id):
     
@@ -12,4 +15,3 @@ def show_note(mode_id, note_id):
 
     return render_template('note.html', color=color, name=name)
 
-# Other routes or functions related to the note blueprint if needed

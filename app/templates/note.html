@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <!-- Meta tags for character set and viewport settings -->
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <!-- Links to Google Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
@@ -11,6 +14,9 @@
 </head>
 
 <style>
+        /* General styling for the body, we put the styling here because since we are passing information like color and font from 
+        previous pages we need them to load on the html rather than an external style sheet. Depeding on your IDE the style tag may look wrong/have red underlines
+        but it is not wrong if you have the specific lint installed for jinja */
     body {
         background: {{ color }};
         font-family: {{ font }};
@@ -25,7 +31,6 @@
     a {
         text-decoration: none;
         color: black;
-
     }
 
     .material-symbols-outlined {
@@ -51,7 +56,6 @@
         flex-shrink: 0;
         background: white; 
         border-radius: 7.5vw;
-        
     }
 
     .note-icon {
@@ -61,7 +65,6 @@
         flex-shrink: 0;
         background: white; 
         border-radius: 7.5vw;
-
     }
 
     .note-list {
@@ -201,12 +204,12 @@
             border-radius: 5px;
             resize: none;
             font-size: 16px;
-        }
-
+    }
 </style>
 
 <body>
     
+    <!-- Navbar section -->
     <div id="navbar" class="navbar">
         <a href="javascript:void(0)" class="close-btn" onclick="closeNav()">       
             <button class="open-btn" onclick="openNav()">
@@ -218,7 +221,7 @@
         
     </div>
     
-
+    <!-- Main content area with menu button -->
     <div id="main">
         <button class="open-btn" onclick="openNav()">
             <span class="material-symbols-outlined" id="menu">menu</span>
@@ -228,15 +231,16 @@
 
     <h1 class="notes-header">Note: {{ name }} </h1>
     
-
+    <!-- Link to navigate to settings page -->
     <a href="{{ url_for('settings.settings_page') }}">
         <span class="material-symbols-outlined" id="btnSetting">settings</span>
     </a>
 
+    <!-- Textarea for the note -->
     <textarea id="noteTextarea" rows="40" cols="100"></textarea>
 
 
-
+    <!-- Script to handle opening and closing the navbar -->
     <script>
         function openNav() {
             document.getElementById("navbar").style.width = "250px";

@@ -1,38 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Links to Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+    <!-- Meta tags for character set and viewport settings -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Title of the HTML page -->
     <title>NoteMode</title>
+
+    <!-- Link to external CSS file -->
     <link href="../static/login.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     
+    <!-- Logo section -->
     <div class="logo-box">
         <h1 class="NoteMode-logo">NoteMode</h1>
     </div>
 
-
+    <!-- Centered login form -->
     <div class="center-login">
+        <!-- Header for login -->
         <h2 id="loginHeader">Login</h2>
         <div id="line"></div>
+        
+        <!-- Form for submitting login information -->
         <form method="post" action="">
+            <!-- Input field for username -->
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required><br>
+            
+            <!-- Input field for password -->
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required><br>
+            
+            <!-- Button to submit the form -->
             <div id="buttonContainer">
                 <button type="submit">Submit</button>
             </div>
         </form>
     </div>
 
+    <!-- Link to navigate to the account creation page -->
     <div id="accountIt">
-       <p> <i>Don't have an account? &nbsp;&nbsp; &nbsp; &nbsp;  </i><u><b> 
-        <a href="{{ url_for('create_account') }}"> Create One </a> </b></u></p>
+        <p> <i>Don't have an account? &nbsp;&nbsp; &nbsp; &nbsp;  </i><u><b> 
+            <a href="{{ url_for('create_account') }}"> Create One </a> </b></u></p>
     </div>
 </body>
 </html>

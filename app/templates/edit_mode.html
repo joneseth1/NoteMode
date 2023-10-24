@@ -1,28 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta tags for character set and viewport settings -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Links to Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    
+    <!-- Link to external CSS file using Flask's url_for method -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='edit_mode.css') }}">
+
+    <!-- Title of the HTML page -->
     <title>NoteMode</title>
 </head>
 <body>
+    <!-- Header section for mode editing -->
     <h1 class="mode-header">Edit Mode</h1>
     <div id="line"></div>
 
+    <!-- Form section for editing mode settings -->
     <div class="edit-mode-form">
         <form method="POST" action="{{ url_for('mode.edit_mode', mode_id=mode[0]) }}">
             <h1>Mode Settings</h1>
+            <!-- Input field for mode name -->
             <label for="mode_name">Mode Name:</label>
             <input type="text" id="mode_name" name="mode_name" value="{{ mode[2] }}"  maxlength="15" required>
+            
             <h2>Styling</h2>
+            <!-- Input field for mode background color -->
             <label for="background_color">Mode Background Color:</label>
             <input type="color" id="background_color" name="background_color" value="{{ mode[3] }}">
             
+            <!-- Dropdown for selecting mode font family -->
             <label for="font_family">Mode Font Family:</label>
             <select id="font_family" name="font_family">
                 <option value="Arial" {{ 'selected' if mode[4] == 'Arial' else '' }}>Arial</option>
@@ -30,6 +43,7 @@
             </select>
             
             <h2>Note View</h2>
+            <!-- Dropdown for selecting note view type -->
             <label for="note_view">View:</label>
             <select id="note_view" name="note_view">
                 <option value="note-tile" {{ 'selected' if mode[5] == 'note-tile' else '' }}>Tiles</option>
@@ -37,20 +51,16 @@
                 <option value="note-list" {{ 'selected' if mode[5] == 'list' else '' }}>List</option>
             </select>
 
+            <!-- Checkbox for deleting mode -->
             <label for="deleteMode">Delete Mode? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input type="checkbox" id="deleteMode" name="deleteMode"> </label>
             
+            <!-- Button to submit the form -->
             <div id='buttonContainer'>
                 <button type="submit">Done</button>
             </div>
         </form>
     </div>
     
-    <script>
-        function goBack() {
-            // Use the history object to navigate back
-            window.history.back();
-        }
-    </script>
-
 </body>
 </html>
+

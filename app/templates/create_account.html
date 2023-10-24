@@ -1,49 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta tags for character set and viewport settings -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Title of the HTML page -->
     <title>NoteMode</title>
+
+    <!-- Links to Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <meta charset="UTF-8">
-    <link href="../static/create_account.css" rel="stylesheet" type="text/css" />
 
+    <!-- Meta tag for character set (repeated) -->
+    <meta charset="UTF-8">
+
+    <!-- Link to external CSS file -->
+    <link href="../static/create_account.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 
+    <!-- Logo section -->
     <div class="logo-box">
         <h1 class="NoteMode-logo">NoteMode</h1>
     </div>
 
+    <!-- Centered login form -->
     <div class="center-login">
+        <!-- Header for account creation -->
+        <h2 id="loginHeader">Create Account</h2>
+        <div id="line"></div>
 
-            <h2 id="loginHeader">Create Account</h2>
-            <div id="line"></div>
-
-            <form method="post" action="">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required><br>
-                <label for="email">Email:</label>
-                <input type="text" id="email" name="email" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" title="Must be a valid email" required><br>
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password"pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required><br>
-                <div id="buttonContainer">
-                    <button type="submit">Create Account</button>
-                </div>
-            </form>
-        </div>
-        <div id="accountIt">
-            <p>Already have an account? &nbsp;&nbsp; &nbsp; &nbsp;  </i><u><b> 
-                <a href="{{ url_for('login') }}">Login </a> </b></u></p>
-        </div>
-        <div id="userExistsAlert" >
-            {% if user_exists %}
-            <p>A user with this email already exists. Please choose a different email.</p>
-            {% endif %}
-        </div>
-
+        <!-- Form for account creation -->
+        <form method="post" action="">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required><br>
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" title="Must be a valid email" required><br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required><br>
+            
+            <!-- Button to submit the form and create the account -->
+            <div id="buttonContainer">
+                <button type="submit">Create Account</button>
+            </div>
+        </form>
     </div>
+
+    <!-- Link to navigate to the login page -->
+    <div id="accountIt">
+        <p>Already have an account? &nbsp;&nbsp; &nbsp; &nbsp;  </i><u><b> 
+            <a href="{{ url_for('login') }}">Login </a> </b></u></p>
+    </div>
+
+    <!-- Display an alert if the user already exists -->
+    <div id="userExistsAlert" >
+        {% if user_exists %}
+        <p>A user with this email/username already exists. Please choose a different email/username.</p>
+        {% endif %}
+    </div>
+
 </body>
 </html>

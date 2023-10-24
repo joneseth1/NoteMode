@@ -1,44 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta tags for character set and viewport settings -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Links to Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <!-- Link to external CSS file -->
     <link href="../static/add_mode.css" rel="stylesheet" type="text/css" />
+    
+    <!-- Title of the HTML page -->
     <title>NoteMode</title>
 </head>
 <body>
 
+    <!-- Header section with mode information -->
     <h1 class="mode-header">Create Mode</h1>
     <div id="line"></div>
 
+    <!-- Link to navigate back to the home page -->
     <a href="{{ url_for('home')}}">
         <span class="material-symbols-outlined" id="arrowBack">
             arrow_back
         </span>
     </a>
 
-
+    <!-- Form section for creating a mode -->
     <div class="create-mode-form">
         <form method="post" action="{{ url_for('mode.add_mode') }}">
             <label for="mode_name">Mode Name:</label>
             <input type="text" id="mode_name" name="mode_name" maxlength="15" required><br>
+            <!-- Button to submit the form and create the mode -->
             <div id="buttonContainer">
                 <button type="submit">Create</button>
             </div>
         </form>
     </div>
 
-
-    <a href="{{ url_for('settings.settings_page') }}"
+    <!-- Link to navigate to the settings page -->
+    <a href="{{ url_for('settings.settings_page') }}">
         <span class="material-symbols-outlined" id="btnSetting">settings</span>
     </a>
-    
-
-
 
 </body>
 </html>

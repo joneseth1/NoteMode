@@ -1,29 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta tags for character set and viewport settings -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Links to Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    
+    <!-- Link to external CSS file using Flask's url_for method -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='edit_mode.css') }}">
+
+    <!-- Title of the HTML page -->
     <title>NoteMode</title>
 </head>
 <body>
+    <!-- Header section for note editing -->
     <h1 class="mode-header">Edit Note</h1>
     <div id="line"></div>
 
+    <!-- Form section for editing note details -->
     <div class="edit-mode-form">
         <form method="POST" action="{{ url_for('notes.edit_note', mode_id=mode_id, note_id=note_id) }}">
+            <!-- Input field for note name -->
             <label for="note_name">Note Name:</label>
             <input type="text" id="note_name" name="note_name" value="{{ note[2] }}" maxlength="15" required>
             
+            <!-- Input field for note password -->
             <label for="note_password">Add Note Password:</label>
             <input type="text" id="note_password" name="note_password">
 
+            <!-- Checkbox for deleting note -->
             <label for="deleteNote">Delete Note? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input type="checkbox" id="deleteNote" name="deleteNote"> </label>
             
+            <!-- Button to submit the form -->
             <div id='buttonContainer'>
                 <button type="submit">Done</button>
             </div>

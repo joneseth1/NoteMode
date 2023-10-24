@@ -1,50 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta tags for character set and viewport settings -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Links to Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    
+    <!-- Link to external CSS file using Flask's url_for method -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link href="../static/home.css" rel="stylesheet" type="text/css" />
+
+    <!-- Title of the HTML page -->
     <title>NoteMode</title>
 </head>
 <body>
 
+    <!-- Header section for displaying modes -->
     <h1 class="mode-header">Modes</h1>
     <div id="line"></div>
 
+    <!-- Link to navigate to the settings page -->
     <a href="{{ url_for('settings.settings_page') }}">
         <span class="material-symbols-outlined" id="btnSetting">settings</span>
     </a>
     
-
+    <!-- Container for displaying list of modes -->
     <div class="mode-list">
+        <!-- Create new mode section -->
         <div id="createNewMode">
+            <!-- Link to add a new mode -->
             <a href="{{ url_for('mode.add_mode') }}">
                 <span class="material-symbols-outlined" id="btnAdd">add_circle</span> 
             </a>
+            <!-- Header for creating a new mode -->
             <h4 id="createNewModeHeader"> Create New Mode </h4>
         </div>
 
-            {% if modes %}
-                {% for mode in modes %}
-                    <div class="mode">
-                        <a href="{{ url_for('notes.show_notes', mode_id=mode[0]) }}">
-                            <span class="material-symbols-outlined" id="btnAdd"></span> 
+        <!-- Loop to display existing modes -->
+        {% if modes %}
+            {% for mode in modes %}
+                <div class="mode">
+                    <!-- Link to navigate to notes in the mode -->
+                    <a href="{{ url_for('notes.show_notes', mode_id=mode[0]) }}">
+                        <span class="material-symbols-outlined" id="btnAdd"></span> 
+                    </a>
+                    <!-- Header for the mode with an edit icon linked to mode editing page -->
+                    <h4 id="createNewModeHeader">{{ mode[2] }}
+                        <a href="{{ url_for('mode.edit_mode',  mode_id=mode[0]) }}">
+                            <span class="material-symbols-outlined" id="editIcon">
+                                edit_square
+                            </span>    
                         </a>
-                        <h4 id="createNewModeHeader">{{ mode[2] }}
-                            <a href="{{ url_for('mode.edit_mode',  mode_id=mode[0]) }}">
-                                <span class="material-symbols-outlined" id="editIcon">
-                                    edit_square
-                                </span>    
-                            </a>
-                        </h4>
-                        
-                    </div>
-                {% endfor %}
-            {% endif %}
+                    </h4>
+                </div>
+            {% endfor %}
+        {% endif %}
 
     </div>
 </body>

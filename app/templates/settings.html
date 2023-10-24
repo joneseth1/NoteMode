@@ -1,50 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Linking to Google Fonts for Roboto -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+    <!-- Meta information -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Title of the page -->
     <title>NoteMode</title>
+
+    <!-- Linking to Google Fonts for Material Symbols Outlined -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <!-- Linking to the CSS file for styling -->
     <link href="../static/settings.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    
+    <!-- Logo box with NoteMode title -->
     <div class="logo-box">
         <h1 class="NoteMode-logo">NoteMode</h1>
     </div>
     
+    <!-- Back button -->
     <a onclick="goBack()">
         <span class="material-symbols-outlined" id="arrowBack">
             arrow_back
         </span>
     </a>
 
-
+    <!-- Centered login section for settings -->
     <div class="center-login">
         <h2 id="loginHeader">Settings</h2>
         <div id="line"></div>
-        <form method="POST" action="{{ url_for('settings.settings_page') }}"">
+
+        <!-- Form for handling different settings actions -->
+        <form method="POST" action="{{ url_for('settings.settings_page') }}">
             <div id="buttonContainer">
+                <!-- Edit Account button -->
                 <button type="submit" name="button_name" value="edit">Edit Account</button>
             </div>
             <div id="buttonContainer">
+                <!-- Delete Account button -->
                 <button type="submit" name="button_name" value="delete">Delete Account</button>
             </div>
             <div id="buttonContainer">
+                <!-- Logout button -->
                 <button type="submit" name="button_name" value="logout">Logout</button>
             </div>
         </form>
     </div>
 
+    <!-- JavaScript function to go back in history -->
     <script>
         function goBack() {
             // Use the history object to navigate back
             window.history.back();
         }
     </script>
-
 </body>
 </html>

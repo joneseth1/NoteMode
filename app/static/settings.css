@@ -1,28 +1,28 @@
+/* Global Styles */
 body {   
     background: #FAFAFA;
     font-family: 'Roboto', sans-serif;
-
     display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh; 
-            margin: 0; 
-
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+    margin: 0; 
 }
 
+/* Link Styles */
 a {
     text-decoration: none;
     color: black;
-
 }
 
-
+/* Form Label Styles */
 label {
     display: block;
     margin-bottom: 8px;
 }
 
+/* Form Input Styles */
 input {
     width: 100%;
     padding: 10px;
@@ -32,6 +32,7 @@ input {
     border-radius: 4px;
 }
 
+/* Form Button Styles */
 button {
     border-radius: 40px;
     background: #031926;
@@ -39,9 +40,6 @@ button {
     width: 185px;
     height: 49px;
     flex-shrink: 0;
-
-    
-
     color: #FFF;
     font-size: 20px;
     font-style: normal;
@@ -49,6 +47,7 @@ button {
     line-height: normal;
 }
 
+/* Custom Symbol Styles */
 .material-symbols-outlined {
     display: inline-block;
     padding: 10px 20px;
@@ -57,22 +56,20 @@ button {
     font-size: 16px;
     cursor: pointer;
     border-radius: 5px;
-
     font-variation-settings:
-    'FILL' 0,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 24
-  }
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24;
+}
 
+/* Logo Styles */
 .NoteMode-logo {
     position: absolute;
     top: -25px;
     left: 40px;
     padding: 10px;
-    
     color: #FAFAFA;
-
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     font-size: 64px;
     font-style: normal;
@@ -80,32 +77,29 @@ button {
     line-height: normal;
 }
 
+/* Logo Box Styles */
 .logo-box {
-
     position: absolute;
     top: 0px;
     left: 0;
     padding: 10px;
     margin: 20px;
-
     width: 383px;
     height: 103px;
     flex-shrink: 0;
-
     border-radius: 35px;
     background: #4078C0;
     mix-blend-mode: darken;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
+/* Login Container Styles */
 .center-login {
     flex-shrink: 0;
-
     border-radius: 35px;
     background: #4078C0;
     mix-blend-mode: darken;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-
     width: 400px;
     height: 400px;
     background-color: #f0f0f0;
@@ -114,34 +108,36 @@ button {
     padding: 20px;
 }
 
-
-
+/* Login Header Styles */
 #loginHeader {
     font-size: 64px;
     padding: 0px;
     margin: 10px;
 }
 
+/* Line Separator Styles */
 #line {
     width: 375px;
     height: 4px;
-    margin:0px 10px;
+    margin: 0px 10px;
     margin-bottom: 20px;
     margin-left: 0px;
-
     background: black;
 }
 
+/* Button Container Styles */
 #buttonContainer {
     text-align: center;
     padding-top: 35px;
 }
 
+/* Account Information Styles */
 #accountIt {
     padding-top: 25px;
     text-align: left;
 }
 
+/* Arrow Back Styles */
 #arrowBack {
     position: absolute;
     font-size: 48px;

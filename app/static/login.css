@@ -1,28 +1,31 @@
+/* Global Styles */
 body {   
-    background: #FAFAFA;
-    font-family: 'Roboto', sans-serif;
+    background: #FAFAFA; /* Background color */
+    font-family: 'Roboto', sans-serif; /* Font family */
 
+    /* Flex container properties */
     display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh; 
-            margin: 0; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
+    height: 100vh; /* Full height of the viewport */
+    margin: 0; /* Remove default margin */
 }
 
+/* Link Styles */
 a {
-    text-decoration: none;
-    color: black;
-
+    text-decoration: none; /* Remove underline */
+    color: black; /* Text color */
 }
 
-
+/* Label Styles */
 label {
     display: block;
     margin-bottom: 8px;
 }
 
+/* Input Styles */
 input {
     width: 100%;
     padding: 10px;
@@ -32,6 +35,7 @@ input {
     border-radius: 4px;
 }
 
+/* Button Styles */
 button {
     border-radius: 40px;
     background: #031926;
@@ -40,24 +44,39 @@ button {
     height: 49px;
     flex-shrink: 0;
 
-    
-
-    color: #FFF;
+    color: #FFF; /* Text color */
     font-size: 20px;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
 }
 
+/* Custom Symbol Styles */
+.material-symbols-outlined {
+    display: inline-block;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
 
+    /* Font variation settings */
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+}
 
+/* Logo Styles */
 .NoteMode-logo {
     position: absolute;
     top: -25px;
     left: 40px;
     padding: 10px;
     
-    color: #FAFAFA;
+    color: #FAFAFA; /* Text color */
 
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     font-size: 64px;
@@ -66,8 +85,8 @@ button {
     line-height: normal;
 }
 
+/* Logo Box Styles */
 .logo-box {
-
     position: absolute;
     top: 0px;
     left: 0;
@@ -84,6 +103,7 @@ button {
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
+/* Login Container Styles */
 .center-login {
     flex-shrink: 0;
 
@@ -100,30 +120,40 @@ button {
     padding: 20px;
 }
 
-
-
+/* Login Header Styles */
 #loginHeader {
     font-size: 64px;
     padding: 0px;
     margin: 10px;
 }
 
+/* Line Separator Styles */
 #line {
     width: 375px;
     height: 4px;
-    margin:0px 10px;
+    margin: 0px 10px;
     margin-bottom: 20px;
     margin-left: 0px;
 
     background: black;
 }
 
+/* Button Container Styles */
 #buttonContainer {
     text-align: center;
-    padding-top: 65px;
+    padding-top: 35px;
 }
 
+/* Account Information Styles */
 #accountIt {
     padding-top: 25px;
     text-align: left;
+}
+
+/* Arrow Back Styles */
+#arrowBack {
+    position: absolute;
+    font-size: 48px;
+    left: 50px;
+    top: 180px;
 }
