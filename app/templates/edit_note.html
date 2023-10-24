@@ -17,7 +17,7 @@
     <div class="edit-mode-form">
         <form method="POST" action="{{ url_for('notes.edit_note', mode_id=mode_id, note_id=note_id) }}">
             <label for="note_name">Note Name:</label>
-            <input type="text" id="note_name" name="note_name" value="{{ note[2] }}" required>
+            <input type="text" id="note_name" name="note_name" value="{{ note[2] }}" maxlength="15" required>
             
             <label for="note_password">Add Note Password:</label>
             <input type="text" id="note_password" name="note_password">

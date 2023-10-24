@@ -18,7 +18,7 @@
         <form method="POST" action="{{ url_for('mode.edit_mode', mode_id=mode[0]) }}">
             <h1>Mode Settings</h1>
             <label for="mode_name">Mode Name:</label>
-            <input type="text" id="mode_name" name="mode_name" value="{{ mode[2] }}" required>
+            <input type="text" id="mode_name" name="mode_name" value="{{ mode[2] }}"  maxlength="15" required>
             <h2>Styling</h2>
             <label for="background_color">Mode Background Color:</label>
             <input type="color" id="background_color" name="background_color" value="{{ mode[3] }}">

@@ -25,7 +25,7 @@
     <div class="create-mode-form">
         <form method="post" action="{{ url_for('mode.add_mode') }}">
             <label for="mode_name">Mode Name:</label>
-            <input type="text" id="mode_name" name="mode_name" required><br>
+            <input type="text" id="mode_name" name="mode_name" maxlength="15" required><br>
             <div id="buttonContainer">
                 <button type="submit">Create</button>
             </div>
