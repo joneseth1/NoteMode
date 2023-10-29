@@ -49,6 +49,10 @@
         'GRAD' 0,
         'opsz' 24
     }
+    
+    .hidden {
+        display: none;
+    }
 
     .note-tile {
         margin: 4vw; 
@@ -158,6 +162,42 @@
         border: 1px solid red; 
     }
 
+    .dropdown {
+        display: inline-block;
+        position: absolute;
+        font-size: 48px;
+        right: 230px;
+        top: 40px;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        top: 100px;
+        background-color: #D9D9D9;
+        min-width: 139px;
+        min-height: 543px;
+        border-radius: 10px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+        font-size: 48px;
+        }
+
+    .dropdown-content a {
+        font-size: 48px;
+        color: black;
+        text-decoration: none;
+        display: block;
+    }
+
+    .dropdown-content a:hover {
+        background-color: #f1f1f1;
+    }
+
+    .show {
+        display: block;
+    }
+
     #main {
         transition: margin-left .5s;
     }
@@ -170,12 +210,10 @@
     }
 
     #btnAdd {
-        text-align: center;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 90%;
-        font-size: 1.5vw;
+        position: absolute;
+        font-size: 48px;
+        background: none;
+        border: none;
     }
 
     #createNewNoteHeader {
@@ -210,6 +248,8 @@
             resize: none;
             font-size: 16px;
     }
+
+
 </style>
 
 <body>
@@ -235,6 +275,24 @@
     
 
     <h1 class="notes-header">Note: {{ name [2] }} </h1>
+    
+
+    <div class="dropdown">
+        
+        <button class="material-symbols-outlined" id="btnAdd" onclick="toggleDropdown()">add_circle</button>
+        
+        <div class="dropdown-content" id="myDropdown">
+            <a href="#" class="material-symbols-outlined">add_photo_alternate</a>
+            <a href="#" class="material-symbols-outlined">link</a>
+            <a href="#" class="material-symbols-outlined">notifications</a>
+            <a href="#" class="material-symbols-outlined">translate</a>
+            <a href="#" class="material-symbols-outlined">draw</a>
+            <a href="#" class="material-symbols-outlined">mic</a>
+            <a href="#" class="material-symbols-outlined">pin</a>
+        </div>
+    </div>
+  
+
     
     <!-- Link to navigate to settings page -->
     <a href="{{ url_for('settings.settings_page') }}">
@@ -282,6 +340,26 @@
         }
 
         document.getElementById('noteTextarea').addEventListener('input', checkSpelling);
+
+
+        function toggleDropdown() {
+            var dropdown = document.getElementById("myDropdown");
+            dropdown.classList.toggle("show");
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
     </script>
 </body>
 </html>
