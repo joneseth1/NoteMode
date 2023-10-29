@@ -288,7 +288,7 @@
             <a href="#" class="material-symbols-outlined">translate</a>
             <a href="#" class="material-symbols-outlined">draw</a>
             <a href="#" class="material-symbols-outlined">mic</a>
-            <a href="#" class="material-symbols-outlined">pin</a>
+            <a href="#" class="material-symbols-outlined" onclick="updateWordCount()">pin</a>
         </div>
     </div>
   
@@ -306,6 +306,7 @@
             <button type="submit" name="button_name" value="Save">Save</button>
         </div>
     </form>
+
 
     <!-- Script to handle opening and closing the navbar -->
     <script>
@@ -360,6 +361,21 @@
                 }
             }
         }
+
+
+
+        function updateWordCount() {
+            var noteTextarea = document.getElementById('noteTextarea');
+            var wordCount = countWords(noteTextarea.value);
+            alert('Word Count: ' + wordCount);  
+        }
+
+        function countWords(text) {
+            var words = text.split(/\s+/);
+            return words.length;
+        }
+
+
     </script>
 </body>
 </html>

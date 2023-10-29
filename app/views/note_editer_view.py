@@ -16,3 +16,19 @@ def show_note(mode_id, note_id):
 
     return render_template('note.html', color=color, name=name)
 
+
+@note.route('/mode/<int:mode_id>/notes/<int:note_id>')
+def word_count(s):
+    
+    if request.method == 'POST':
+        note_content = request.form.get('noteTextarea')
+        word_count = count_words(note_content)
+        return render_template('note.html', word_count=word_count)
+    else: 
+        return render_template('note.html')
+
+
+
+def count_words(text):
+    words = text.split()
+    return len(words)
