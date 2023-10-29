@@ -198,6 +198,27 @@
         display: block;
     }
 
+    .popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border: 1px solid #ccc;
+        background-color: #fff;
+        padding: 20px;
+        z-index: 1;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .popup .close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 20px;
+        cursor: pointer;
+    }
+
     #main {
         transition: margin-left .5s;
     }
@@ -249,6 +270,11 @@
             font-size: 16px;
     }
 
+    #wordCountDisplay {
+        font-size: 18px;
+        color: #FFFFFF;
+        margin-top: 10px;  
+    }
 
 </style>
 
@@ -275,12 +301,19 @@
     
 
     <h1 class="notes-header">Note: {{ name [2] }} </h1>
+
+
     
+    <div id="wordCountPopup" class="popup">
+        <span class="close" onclick="closeWordCountPopup()">&times;</span>
+        <p id="wordCountContent"></p>
+    </div>
+
+
+
 
     <div class="dropdown">
-        
         <button class="material-symbols-outlined" id="btnAdd" onclick="toggleDropdown()">add_circle</button>
-        
         <div class="dropdown-content" id="myDropdown">
             <a href="#" class="material-symbols-outlined">add_photo_alternate</a>
             <a href="#" class="material-symbols-outlined">link</a>
@@ -367,7 +400,20 @@
         function updateWordCount() {
             var noteTextarea = document.getElementById('noteTextarea');
             var wordCount = countWords(noteTextarea.value);
-            alert('Word Count: ' + wordCount);  
+
+            // Update the content of the word count display element
+            var wordCountContent = document.getElementById('wordCountContent');
+            wordCountContent.textContent = 'Word Count: ' + wordCount;
+
+            // Show the popup box
+            var wordCountPopup = document.getElementById('wordCountPopup');
+            wordCountPopup.style.display = 'block';
+        }
+
+        function closeWordCountPopup() {
+            // Hide the popup box
+            var wordCountPopup = document.getElementById('wordCountPopup');
+            wordCountPopup.style.display = 'none';
         }
 
         function countWords(text) {
