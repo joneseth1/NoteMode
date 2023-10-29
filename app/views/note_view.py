@@ -85,6 +85,35 @@ def edit_note(mode_id, note_id):
 
     return redirect(url_for('login'))
 
+
+@notes.route('/mode/<int:mode_id>/edit-note/<int:note_id>/save-note', methods=['GET', 'POST'])
+def save_note(mode_id, note_id):
+    if 'username' in session:
+        username = session['username']
+        user_id = get_user_id(username)
+
+        note = get_note_by_id(note_id)
+
+        if request.method == 'POST':
+            # Get note details from the form
+            note_content = request.form.get('noteTextarea')
+
+            # Update existing note in the database
+            with sqlite3.connect('modes.db') as conn:
+                cursor = conn.cursor()
+                cursor.execute('UPDATE notes SET note_content = ? WHERE id = ?', (note_content, note_id))
+                conn.commit()
+
+            flash('Note updated successfully!', 'success')
+
+            return redirect(url_for('notes.show_notes', mode_id=mode_id))
+
+        return render_template('note.html', note=note, mode_id=mode_id, note_id=note_id)
+
+    return redirect(url_for('login'))
+    
+
+
 # Helper function to get mode information by ID
 def get_mode_info(mode_id):
     with sqlite3.connect('modes.db') as conn:

@@ -229,7 +229,7 @@
     </di>
     
 
-    <h1 class="notes-header">Note: {{ name }} </h1>
+    <h1 class="notes-header">Note: {{ name [2] }} </h1>
     
     <!-- Link to navigate to settings page -->
     <a href="{{ url_for('settings.settings_page') }}">
@@ -237,8 +237,12 @@
     </a>
 
     <!-- Textarea for the note -->
-    <textarea id="noteTextarea" rows="40" cols="100"></textarea>
-
+    <form method="POST" action="{{ url_for('notes.save_note', mode_id=name[1], note_id=name[0])}}">
+        <textarea id="noteTextarea" name="noteTextarea" rows="40" cols="100">{{ name[3] }}</textarea>
+        <div>
+            <button type="submit" name="button_name" value="Save">Save</button>
+        </div>
+    </form>
 
     <!-- Script to handle opening and closing the navbar -->
     <script>

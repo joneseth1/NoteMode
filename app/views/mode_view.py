@@ -29,6 +29,7 @@ def init_db():
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 mode_id INTEGER,
                 note_name TEXT,
+                note_content TEXT, 
                 FOREIGN KEY (mode_id) REFERENCES modes (id)
             )
         ''')
@@ -145,3 +146,4 @@ def edit_mode(mode_id):
         return render_template('edit_mode.html', mode=mode)
 
     return redirect(url_for('login'))
+
