@@ -10,6 +10,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+        <script src="https://cdn.jsdelivr.net/npm/pyspellchecker@0.6.7/dist/index.min.js"></script>
         <title>NoteMode</title>
 </head>
 
@@ -153,6 +154,10 @@
         margin-left: 50px;
     }
 
+    .misspelled {
+        border: 1px solid red; 
+    }
+
     #main {
         transition: margin-left .5s;
     }
@@ -255,6 +260,28 @@
             document.getElementById("navbar").style.width = "0";
             document.getElementById("main").style.marginLeft = "0";
         }
+
+        // Create a Spellchecker instance
+        var spell = new Spellchecker();
+
+        // Function to check spelling and update UI
+        function checkSpelling() {
+            var textarea = document.getElementById('noteTextarea');
+            var words = textarea.value.split(/\s+/);
+
+            // Clear previous highlights
+            textarea.classList.remove('misspelled');
+
+            // Check spelling and highlight misspelled words
+            for (var i = 0; i < words.length; i++) {
+                if (!spell.isMisspelled(words[i])) {
+                    // Highlight misspelled words
+                    textarea.classList.add('misspelled');
+                }
+            }
+        }
+
+        document.getElementById('noteTextarea').addEventListener('input', checkSpelling);
     </script>
 </body>
 </html>
