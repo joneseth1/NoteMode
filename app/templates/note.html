@@ -11,6 +11,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <script src="https://cdn.jsdelivr.net/npm/pyspellchecker@0.6.7/dist/index.min.js"></script>
+        <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
         <title>NoteMode</title>
 </head>
 
@@ -260,16 +261,6 @@
         color: black;
     }
 
-    #noteTextarea {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            resize: none;
-            font-size: 16px;
-    }
-
     #wordCountDisplay {
         font-size: 18px;
         color: #FFFFFF;
@@ -321,7 +312,7 @@
             <a href="#" class="material-symbols-outlined">translate</a>
             <a href="#" class="material-symbols-outlined">draw</a>
             <a href="#" class="material-symbols-outlined">mic</a>
-            <a href="#" class="material-symbols-outlined" onclick="updateWordCount()">pin</a>
+            <a href="#" class="material-symbols-outlined" onclick="showWordCount()" >pin</a>
         </div>
     </div>
   
@@ -333,16 +324,49 @@
     </a>
 
     <!-- Textarea for the note -->
-    <form method="POST" action="{{ url_for('notes.save_note', mode_id=name[1], note_id=name[0])}}">
-        <textarea id="noteTextarea" name="noteTextarea" rows="40" cols="100">{{ name[3] }}</textarea>
-        <div>
-            <button type="submit" name="button_name" value="Save">Save</button>
-        </div>
+    <form method="POST" action="{{ url_for ('notes.save_note', mode_id=name[1], note_id=name[0]) }}">
+        <textarea id="editor" name="content">{{ name[3] }}</textarea>
+        <button type="submit">Save</button>
     </form>
 
 
-    <!-- Script to handle opening and closing the navbar -->
+    <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
     <script>
+        CKEDITOR.replace('editor', {
+            height: 700,
+            width: 800,
+            link: {
+                decorators: {
+                    openInNewTab: {
+                    mode: 'manual',
+                    label: 'Open in a new tab',
+                    attributes: {
+                        target: '_blank',
+                        rel: 'noopener noreferrer'
+                    }
+                }
+            }
+            }
+        });
+
+        CKEDITOR.instances.editor.document.getBody().on('click', function(event) {
+            var target = event.getTarget();
+
+            if (target.is('a')) {
+                var linkHref = target.getAttribute('href');
+                window.open(linkHref, '_blank');
+                event.preventDefault();
+            }
+        });
+
+        function showWordCount() {
+            var content = document.querySelector('#editor').value;
+            var wordCount = content.trim().split(/\s+/).filter(function (word) {
+                return word.length > 0;
+            }).length;
+            alert('Word Count: ' + wordCount);
+        }
+
         function openNav() {
             document.getElementById("navbar").style.width = "250px";
             document.getElementById("main").style.marginLeft = "250px";
@@ -358,7 +382,7 @@
 
         // Function to check spelling and update UI
         function checkSpelling() {
-            var textarea = document.getElementById('noteTextarea');
+            var textarea = document.getElementById('editor');
             var words = textarea.value.split(/\s+/);
 
             // Clear previous highlights

@@ -95,8 +95,8 @@ def save_note(mode_id, note_id):
         note = get_note_by_id(note_id)
 
         if request.method == 'POST':
-            # Get note details from the form
-            note_content = request.form.get('noteTextarea')
+            # Get note content from CKEditor
+            note_content = request.form.get('content')
 
             # Update existing note in the database
             with sqlite3.connect('modes.db') as conn:
@@ -111,7 +111,6 @@ def save_note(mode_id, note_id):
         return render_template('note.html', note=note, mode_id=mode_id, note_id=note_id)
 
     return redirect(url_for('login'))
-    
 
 
 # Helper function to get mode information by ID
