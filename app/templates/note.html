@@ -414,8 +414,10 @@
         // Save drawing from the modal
         document.getElementById('saveDrawingModal').addEventListener('click', function() {
             const imgData = canvasModal.toDataURL({ format: 'png' });
-            // Send imgData to the server (via AJAX or form submission)
-            // Save the image path in your database or wherever you store notes
+            const editor = CKEDITOR.instances.editor;
+            
+            editor.insertHtml(`<img src="${imgData}" alt="Drawing">`);
+
             modal.style.display = 'none'; // Close the modal after saving
         });
 
