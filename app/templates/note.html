@@ -256,6 +256,14 @@
         cursor: pointer;
     }
 
+    /* Add styles for the active link */
+    .speechLink.active {
+        border: 10px solid red;
+        background-color: red; 
+        border-radius: 50%;
+        padding: 5px;
+    }
+
     /* Media query for smaller screens */
     @media only screen and (max-width: 600px) {
         .modal-content {
@@ -351,7 +359,7 @@
         <div class="dropdown-content" id="myDropdown">
             <a href="#" class="material-symbols-outlined">notifications</a>
             <a href="#" id="openDrawingModal" class="material-symbols-outlined">draw</a>
-            <a href="#" id="startSpeech" class="material-symbols-outlined">mic</a>
+            <a href="#" id="startSpeech" class="material-symbols-outlined speechLink">mic</a>
             <a href="#" class="material-symbols-outlined" onclick="showWordCount()" >pin</a>
         </div>
     </div>
@@ -391,16 +399,29 @@
         // Voice to text 
         const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
         recognition.lang = 'en-US';
+        let isRecognitionActive = false;
+        const speechLink = document.getElementById('startSpeech');
 
-        // Start speech recognition when the link is clicked
-        document.getElementById('startSpeech').addEventListener('click', function(event) {
-            event.preventDefault(); // Prevent the link from navigating
+        // Toggle speech recognition on link click
+        speechLink.addEventListener('click', function (event) {
+            // Prevent the link from navigating
+            event.preventDefault(); 
 
-            recognition.start();
+            if (!isRecognitionActive) {
+                recognition.start();
+                isRecognitionActive = true;
+                // Add the 'active' class
+                speechLink.classList.add('active'); 
+            } else {
+                recognition.stop();
+                isRecognitionActive = false;
+                // Remove the 'active' class
+                speechLink.classList.remove('active'); 
+            }
         });
 
         // Handle speech recognition results
-        recognition.onresult = function(event) {
+        recognition.onresult = function (event) {
             const result = event.results[event.resultIndex][0].transcript;
 
             // Assuming 'editor' is your CKEditor instance
@@ -410,6 +431,12 @@
             editor.insertHtml(`<p>${result}</p>`);
         };
 
+        // Handle end event to restart recognition if it's still active
+        recognition.onend = function () {
+            if (isRecognitionActive) {
+                recognition.start();
+            }
+        };
 
 
 
@@ -443,7 +470,8 @@
             
             editor.insertHtml(`<img src="${imgData}" alt="Drawing">`);
 
-            modal.style.display = 'none'; // Close the modal after saving
+            // Close the modal after saving
+            modal.style.display = 'none'; 
         });
 
         // Close the modal if the user clicks outside the modal content
