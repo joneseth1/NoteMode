@@ -219,6 +219,49 @@
         font-size: 20px;
         cursor: pointer;
     }
+    /* Style the modal */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4);
+        padding-top: 60px;
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 5% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%; /* Adjust the initial width */
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    /* Media query for smaller screens */
+    @media only screen and (max-width: 600px) {
+        .modal-content {
+            width: 90%; /* Adjust the width for smaller screens */
+        }
+    }
 
     #main {
         transition: margin-left .5s;
@@ -306,11 +349,8 @@
     <div class="dropdown">
         <button class="material-symbols-outlined" id="btnAdd" onclick="toggleDropdown()">add_circle</button>
         <div class="dropdown-content" id="myDropdown">
-            <a href="#" class="material-symbols-outlined">add_photo_alternate</a>
-            <a href="#" class="material-symbols-outlined">link</a>
             <a href="#" class="material-symbols-outlined">notifications</a>
-            <a href="#" class="material-symbols-outlined">translate</a>
-            <a href="#" class="material-symbols-outlined">draw</a>
+            <a href="#" id="openDrawingModal" class="material-symbols-outlined">draw</a>
             <a href="#" class="material-symbols-outlined">mic</a>
             <a href="#" class="material-symbols-outlined" onclick="showWordCount()" >pin</a>
         </div>
@@ -323,6 +363,18 @@
         <span class="material-symbols-outlined" id="btnSetting">settings</span>
     </a>
 
+
+    <!-- The drawing modal -->
+    <div id="drawingModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <canvas id="drawingCanvasModal" width="1500" height="600"></canvas>
+            <input type="color" id="colorPickerModal" value="#000000">
+            <button id="saveDrawingModal">Save Drawing</button>
+        </div>
+    </div>
+
+
     <!-- Textarea for the note -->
     <form method="POST" action="{{ url_for ('notes.save_note', mode_id=name[1], note_id=name[0]) }}">
         <textarea id="editor" name="content">{{ name[3] }}</textarea>
@@ -330,8 +382,59 @@
     </form>
 
 
+
     <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/3.6.6/fabric.min.js"></script>
     <script>
+
+       // Get the modal elements
+        const modal = document.getElementById('drawingModal');
+        const openModalLink = document.getElementById('openDrawingModal');
+        const closeModalSpan = document.querySelector('.modal-content .close');
+        const colorPickerModal = document.getElementById('colorPickerModal');
+        // Create a separate canvas for the modal
+        const canvasModal = new fabric.Canvas('drawingCanvasModal', { isDrawingMode: true });
+
+        // Event listeners for opening and closing the modal
+        openModalLink.addEventListener('click', function() {
+            modal.style.display = 'block';
+        });
+
+        closeModalSpan.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+
+        // Update brush color when the color picker changes in the modal
+        colorPickerModal.addEventListener('input', function() {
+            canvasModal.freeDrawingBrush.color = this.value;
+        });
+
+
+        // Save drawing from the modal
+        document.getElementById('saveDrawingModal').addEventListener('click', function() {
+            const imgData = canvasModal.toDataURL({ format: 'png' });
+            // Send imgData to the server (via AJAX or form submission)
+            // Save the image path in your database or wherever you store notes
+            modal.style.display = 'none'; // Close the modal after saving
+        });
+
+        // Close the modal if the user clicks outside the modal content
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+
+        // Close the modal if the user clicks outside the modal content
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+
         CKEDITOR.replace('editor', {
             height: 700,
             width: 800,
@@ -358,6 +461,8 @@
                 event.preventDefault();
             }
         });
+
+        
 
         function showWordCount() {
             var content = document.querySelector('#editor').value;

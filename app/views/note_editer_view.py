@@ -26,6 +26,7 @@ def word_count(s):
         return render_template('note.html', word_count=word_count)
     else: 
         return render_template('note.html')
+    
 
 
 
