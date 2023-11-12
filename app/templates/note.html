@@ -404,7 +404,7 @@
 
         // Toggle speech recognition on link click
         speechLink.addEventListener('click', function (event) {
-            // Prevent the link from navigating
+            
             event.preventDefault(); 
 
             if (!isRecognitionActive) {
@@ -496,25 +496,30 @@
             link: {
                 decorators: {
                     openInNewTab: {
-                    mode: 'manual',
-                    label: 'Open in a new tab',
-                    attributes: {
-                        target: '_blank',
-                        rel: 'noopener noreferrer'
+                        mode: 'manual',
+                        label: 'Open in a new tab',
+                        attributes: {
+                            target: '_blank',
+                            rel: 'noopener noreferrer'
+                        }
                     }
                 }
             }
-            }
         });
 
-        CKEDITOR.instances.editor.document.getBody().on('click', function(event) {
-            var target = event.getTarget();
+        CKEDITOR.instances.editor.on('contentDom', function () {
+            this.document.getBody().on('click', function (event) {
+                var target = event.data.getTarget().$.nodeName;
 
-            if (target.is('a')) {
-                var linkHref = target.getAttribute('href');
-                window.open(linkHref, '_blank');
-                event.preventDefault();
-            }
+                if (target === 'A') {
+                    var linkHref = event.data.getTarget().$.getAttribute('href');
+
+                    if (linkHref) {
+                        window.open(linkHref, '_blank');
+                        event.preventDefault();
+                    }
+                }
+            });
         });
 
         
