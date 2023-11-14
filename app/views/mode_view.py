@@ -30,6 +30,7 @@ def init_db():
                 mode_id INTEGER,
                 note_name TEXT,
                 note_content TEXT, 
+                note_password TEXT,
                 FOREIGN KEY (mode_id) REFERENCES modes (id)
             )
         ''')

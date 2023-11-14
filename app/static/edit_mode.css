@@ -99,6 +99,10 @@ button {
     line-height: normal;
 }
 
+.error-message { 
+    color: red;
+}
+
 /* Mode Header Line Styles */
 .mode-header::before {
     content: "";

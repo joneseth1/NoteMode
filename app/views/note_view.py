@@ -20,6 +20,7 @@ def show_notes(mode_id):
         view = get_view(mode_id)
         name = get_mode_name(mode_id)
 
+    
         # Render the notes template with mode information
         return render_template('notes.html', name=name, color=color, font=font, mode_id=mode_id, view=view, notes=notes)
 
@@ -64,6 +65,16 @@ def edit_note(mode_id, note_id):
             # Get new note name and check if the checkbox is selected for deletion
             new_note_name = request.form.get('note_name')
             delete_note = request.form.get('deleteNote')
+            protectNote = request.form.get('protectNote')
+            note_password = request.form.get('note_password')
+
+            if protectNote is not None:  
+                with sqlite3.connect('modes.db') as conn:
+                    cursor = conn.cursor()
+                    cursor.execute('UPDATE notes SET note_password = ? WHERE id = ?', (note_password, note_id))
+                    conn.commit()
+                return redirect(url_for('notes.show_notes', mode_id=mode_id))
+
 
             if delete_note is not None:  # Check if the checkbox is selected
                 # Delete the note if the checkbox is selected
@@ -170,3 +181,5 @@ def get_note_by_id(note_id):
         cursor.execute('SELECT * FROM notes WHERE id = ?', (note_id,))
         note = cursor.fetchone()
     return note
+
+
