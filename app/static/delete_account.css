@@ -144,13 +144,14 @@ button {
 }
 
 
-
+/* Login Styling */
 #loginHeader {
     font-size: 64px;
     padding: 0px;
     margin: 10px;
 }
 
+/* Line for logo Styling */
 #line {
     width: 375px;
     height: 4px;

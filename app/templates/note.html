@@ -10,8 +10,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-        <script src="https://cdn.jsdelivr.net/npm/pyspellchecker@0.6.7/dist/index.min.js"></script>
-        <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+        <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
         <title>NoteMode</title>
 </head>
 
@@ -329,9 +328,7 @@
                 <span class="material-symbols-outlined" id="menu">menu</span>
             </button>
         </a>
-
         <a href="{{ url_for('home') }}">Modes </a>
-        
     </div>
     
     <!-- Main content area with menu button -->
@@ -341,11 +338,11 @@
         </button>
     </di>
     
-
+    <!-- pulls note name from database for header -->
     <h1 class="notes-header">Note: {{ name [2] }} </h1>
 
 
-    
+    <!-- Word count popup -->
     <div id="wordCountPopup" class="popup">
         <span class="close" onclick="closeWordCountPopup()">&times;</span>
         <p id="wordCountContent"></p>
@@ -353,7 +350,7 @@
 
 
 
-
+    <!-- drop down links for + button icon -->
     <div class="dropdown">
         <button class="material-symbols-outlined" id="btnAdd" onclick="toggleDropdown()">add_circle</button>
         <div class="dropdown-content" id="myDropdown">
@@ -390,8 +387,7 @@
     </form>
 
 
-
-    <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+    
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/3.6.6/fabric.min.js"></script>
     <script>
@@ -489,10 +485,11 @@
             }
         });
 
-
+        //  Plugin for our note editor
         CKEDITOR.replace('editor', {
             height: 700,
             width: 800,
+            scayt_autoStartup: true,
             link: {
                 decorators: {
                     openInNewTab: {
@@ -507,6 +504,7 @@
             }
         });
 
+        // Note editor checks the  dom for content 
         CKEDITOR.instances.editor.on('contentDom', function () {
             this.document.getBody().on('click', function (event) {
                 var target = event.data.getTarget().$.nodeName;
@@ -523,15 +521,16 @@
         });
 
         
-
+        // Show word count functionilty
         function showWordCount() {
             var content = document.querySelector('#editor').value;
             var wordCount = content.trim().split(/\s+/).filter(function (word) {
                 return word.length > 0;
             }).length;
-            alert('Word Count: ' + wordCount);
+            alert('Word Count: ' + wordCount); // returns the word count of note 
         }
 
+        // Nav bar functionilty
         function openNav() {
             document.getElementById("navbar").style.width = "250px";
             document.getElementById("main").style.marginLeft = "250px";
@@ -585,7 +584,7 @@
         }
 
 
-
+        // update the word count 
         function updateWordCount() {
             var noteTextarea = document.getElementById('noteTextarea');
             var wordCount = countWords(noteTextarea.value);

@@ -96,7 +96,7 @@ def edit_note(mode_id, note_id):
 
     return redirect(url_for('login'))
 
-
+# route for saving a note in a mode
 @notes.route('/mode/<int:mode_id>/edit-note/<int:note_id>/save-note', methods=['GET', 'POST'])
 def save_note(mode_id, note_id):
     if 'username' in session:
