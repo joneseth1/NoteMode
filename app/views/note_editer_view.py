@@ -1,11 +1,13 @@
 import sqlite3
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 from flask import Blueprint, render_template
 from views.note_view import get_mode_info, get_mode_by_id, get_background_color, get_note_by_id, request
 
 note = Blueprint('note', __name__)
 
 
-#View for the actual note editing, not fully complete since this is a sprint 3 requirment
 
 @note.route('/mode/<int:mode_id>/notes/<int:note_id>')
 def show_note(mode_id, note_id):
@@ -18,6 +20,42 @@ def show_note(mode_id, note_id):
         return render_template('password_prompt.html', mode_id=mode_id, note_id=note_id)
 
     return render_template('note.html', color=color, name=name)
+
+
+@note.route('/mode/<int:mode_id>/notes/<int:note_id>/notifications', methods=['GET', 'POST'])
+def notifications(mode_id, note_id):
+    color = get_background_color(mode_id)
+    name = get_note_by_id(note_id)
+    password = get_note_password(note_id)
+
+    
+    if request.method == 'POST':
+        email = request.form['email']
+        selected_date = request.form['selected_date']
+
+        # Your Gmail credentials
+        gmail_user = 'notemode4@gmail.com'
+        gmail_password = 'ggtunleyylvgkkvo'
+
+        # Set up the email content
+        subject = f'NoteMode Reminder for {selected_date} your note called: {name[2]}'
+        body = f'Hello,\n\nThis is a reminder for the selected date: "{selected_date}: in your note: "{name[2]}".\n\nBest regards,\n NoteMode'
+
+        message = MIMEMultipart()
+        message['From'] = gmail_user
+        message['To'] = email
+        message['Subject'] = subject
+        message.attach(MIMEText(body, 'plain'))
+
+        # Connect to Gmail SMTP server
+        with smtplib.SMTP('smtp.gmail.com', 587) as server:
+            server.starttls()
+            server.login(gmail_user, gmail_password)
+            server.sendmail(gmail_user, email, message.as_string())
+
+            return render_template('note.html', color=color, name=name)
+
+    return render_template('notifications.html', mode_id=mode_id, note_id=note_id)
 
 @note.route('/mode/<int:mode_id>/notes/<int:note_id>', methods=['GET', 'POST'])
 def password_note(mode_id, note_id):

@@ -357,7 +357,7 @@
     <div class="dropdown">
         <button class="material-symbols-outlined" id="btnAdd" onclick="toggleDropdown()">add_circle</button>
         <div class="dropdown-content" id="myDropdown">
-            <a href="#" class="material-symbols-outlined">notifications</a>
+            <a href="{{ url_for('note.notifications', mode_id=name[1], note_id=name[0]) }}" class="material-symbols-outlined">notifications</a>
             <a href="#" id="openDrawingModal" class="material-symbols-outlined">draw</a>
             <a href="#" id="startSpeech" class="material-symbols-outlined speechLink">mic</a>
             <a href="#" class="material-symbols-outlined" onclick="showWordCount()" >pin</a>
